@@ -1,0 +1,7 @@
+dnspython
+certifi
+itsdangerous==2.0.1
+Jinja2==3.0.3
+MarkupSafe==2.0.1
+Flask==2.0.2
+Flask-PyMongo==2.3.0

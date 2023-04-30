@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: 'rabbitmq:3.6-management-alpine'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+
+  consumer_one:
+    build: consumer_one
+    volumes:
+      - ./consumer_one:/healthcheck
+    environment:
+      - PYTHONUNBUFFERED=1
+  
+  consumer_two:
+    build: consumer_two
+    volumes:
+      - ./consumer_two:/insertion
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - 27017:27017
+  
+  consumer_three:
+    build: consumer_three
+    volumes:
+      - ./consumer_three:/deletion
+    environment:
+      - PYTHONUNBUFFERED=1
+    # ports:
+    #   - 27017:27017
+  
+  consumer_four:
+    build: consumer_four
+    volumes:
+      - ./consumer_four:/read
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  producer:
+    build: producer
+    volumes:
+      - ./producer:/producer
+    ports:
+      - 5000:5000
